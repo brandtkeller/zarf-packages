@@ -2,13 +2,14 @@ kind: ZarfPackageConfig
 metadata:
   name: local-path-provisioner
   description: "Local path provisioner zarf component"
-  version: 0.0.1
+  version: 0.0.2
 
-# variables:
-#   # - name: VIP_INTERFACE
-#   #   description: "Interface for the VIP"
-#   #   prompt: true
-#   #   sensitive: false
+variables:
+  - name: LOCAL_STORAGE_PATH
+    description: "path on the node for the local path provisioner will create PVC's"
+    prompt: true
+    default: /opt/local-path-provisioner
+    sensitive: false
 
 
 components:
