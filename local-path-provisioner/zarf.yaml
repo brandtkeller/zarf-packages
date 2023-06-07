@@ -1,0 +1,26 @@
+kind: ZarfPackageConfig
+metadata:
+  name: local-path-provisioner
+  description: "Local path provisioner zarf component"
+  version: 0.0.1
+
+# variables:
+#   # - name: VIP_INTERFACE
+#   #   description: "Interface for the VIP"
+#   #   prompt: true
+#   #   sensitive: false
+
+
+components:
+- name: local-path-provisioner
+  required: true
+  charts:
+  - name: local-path-provisioner
+    namespace: local-path
+    localPath: chart
+    version: 0.0.24
+    valuesFiles:
+    - values.yaml
+  images:
+  - rancher/local-path-provisioner:v0.0.24
+  - busybox:1.35.0

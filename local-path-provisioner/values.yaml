@@ -1,0 +1,12 @@
+helperImage:
+  repository: busybox
+  tag: 1.35.0
+
+storageClass:
+  name: local-path-storage
+  reclaimPolicy: Retain
+
+nodePathMap:
+  - node: DEFAULT_PATH_FOR_NON_LISTED_NODES
+    paths:
+      - /opt/local-path-provisioner
