@@ -1,0 +1,38 @@
+kind: ZarfPackageConfig
+metadata:
+  name: nextcloud
+  description: "nextcloud zarf component"
+  version: 0.0.1
+
+variables:
+  # - name: LOCAL_STORAGE_PATH
+  #   description: "path on the node for the local path provisioner will create PVC's"
+  #   prompt: true
+  #   default: /opt/local-path-provisioner
+  #   sensitive: false
+
+
+components:
+- name: nextcloud
+  required: true
+  charts:
+  - name: nextcloud
+    namespace: nextcloud
+    url: https://nextcloud.github.io/helm/
+    version: 3.5.13
+    valuesFiles:
+    - values.yaml
+  - name: postgresql
+    namespace: nextcloud
+    url:
+    version:
+    valuesFiles:
+    - pg-values.yaml
+  - name: redis
+    namespace: nextcloud
+    url:
+    version:
+    valuesFiles:
+    - redis-values.yaml
+  images:
+  - nextcloud:26.0.2
