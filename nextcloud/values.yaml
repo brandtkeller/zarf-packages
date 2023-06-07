@@ -1,2 +1,51 @@
 nextcloud:
+  username: admin
+  password: admin
   extraInitContainers: []
+
+  host: cloud.prod.kellerhome.us
+  configs:
+    domains.config.php: |-
+      <?php
+      $CONFIG = array (
+        'trusted_domains' =>
+          array (
+          0 => 'localhost',
+          1 => 'cloud.prod.kellerhome.us',
+          )
+      );
+    overwrite.config.php: |-
+      <?php
+      $CONFIG = array (
+        'overwriteprotocol' => 'https',
+      );
+
+internalDatabase:
+  enabled: false
+
+externalDatabase:
+  enabled: true
+
+  ## Supported database engines: mysql or postgresql
+  type: postgresql
+
+  user: nextcloud
+
+  ## Database password
+  password: replaceme
+
+  ## Database host
+  host: nextcloud-postgresql.nextcloud.svc.cluster.local:5432
+  ## Database name
+  database: nextcloud
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteOnce
+  size: 10Gi
+
+  nextcloudData:
+    enabled: true
+    storageClass: "nfs-client"
+    accessMode: ReadWriteOnce
+    size: 400Gi

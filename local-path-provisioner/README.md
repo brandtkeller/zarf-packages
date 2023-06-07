@@ -1,4 +1,4 @@
-# local-path-provisioner zarf package
+# local-path-provisioner zarf component
 
 OCI component for the [Rancher Local Path Provisioner](https://github.com/rancher/local-path-provisioner)
 
