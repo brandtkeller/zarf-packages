@@ -1,3 +1,3 @@
 auth:
   enabled: true
-  password: 'redis123!'
+  password: '###ZARF_VAR_NEXTCLOUD_REDIS_PASSWORD###'

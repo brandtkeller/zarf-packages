@@ -2,7 +2,7 @@ kind: ZarfPackageConfig
 metadata:
   name: local-path-provisioner
   description: "Local path provisioner zarf component"
-  version: 0.0.2
+  version: 0.0.3
 
 variables:
   - name: LOCAL_STORAGE_PATH

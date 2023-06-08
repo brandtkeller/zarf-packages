@@ -2,7 +2,7 @@ kind: ZarfPackageConfig
 metadata:
   name: nextcloud
   description: "nextcloud zarf component"
-  version: 0.0.1
+  version: 0.0.8
 
 variables:
   - name: NEXTCLOUD_ADMIN_USERNAME
@@ -23,25 +23,45 @@ variables:
   - name: NEXTCLOUD_DATA_STORAGE_CLASS
     description: "storage class for nextcloud"
     prompt: true
-    default: "-"
+    default: ""
     sensitive: false
   - name: NEXTCLOUD_DATA_STORAGE_SIZE
     description: "storage size for nextcloud"
     prompt: true
     default: "100Gi"
     sensitive: false
-  - name: POSTGRESQL_DATABASE
+  - name: NEXTCLOUD_POSTGRESQL_HOST
+    description: "postgres host"
+    prompt: true
+    default: "nextcloud-postgresql"
+    sensitive: false  
+  - name: NEXTCLOUD_POSTGRESQL_DATABASE
     description: "postgres database to create"
     prompt: true
     default: "nextcloud"
     sensitive: false
-  - name: POSTGRESQL_USERNAME
+  - name: NEXTCLOUD_POSTGRESQL_USERNAME
     description: "postgres user to create"
     prompt: true
     default: "nextcloud"
     sensitive: false
-  - name: POSTGRESQL_PASSWORD
+  - name: NEXTCLOUD_POSTGRESQL_PASSWORD
     description: "postgres password to create"
+    prompt: true
+    default: "nextcloud"
+    sensitive: true
+  - name: NEXTCLOUD_REDIS_HOST
+    description: "redis host for nextcloud"
+    prompt: true
+    default: "nextcloud-redis-master"
+    sensitive: false
+  - name: NEXTCLOUD_REDIS_PORT
+    description: "redis port for nextcloud"
+    prompt: true
+    default: "6379"
+    sensitive: false
+  - name: NEXTCLOUD_REDIS_PASSWORD
+    description: "redis host for nextcloud"
     prompt: true
     default: "nextcloud"
     sensitive: true
@@ -50,12 +70,6 @@ components:
 - name: nextcloud
   required: true
   charts:
-  - name: nextcloud
-    namespace: nextcloud
-    url: https://nextcloud.github.io/helm/
-    version: 3.5.13
-    valuesFiles:
-    - values.yaml
   - name: postgresql
     namespace: nextcloud
     url: https://charts.bitnami.com/bitnami
@@ -68,7 +82,13 @@ components:
     version: 16.12.3
     valuesFiles:
     - redis-values.yaml
+  - name: nextcloud
+    namespace: nextcloud
+    url: https://nextcloud.github.io/helm/
+    version: 3.5.13
+    valuesFiles:
+    - values.yaml
   images:
-  - nextcloud:26.0.2
+  - nextcloud:26.0.2-apache
   - bitnami/postgresql:14.4.0-debian-11-r23
   - bitnami/redis:6.2.7-debian-11-r3

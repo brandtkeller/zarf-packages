@@ -23,6 +23,8 @@ data:
     kind: Pod
     metadata:
       name: helper-pod
+      labels:
+        provisioner: helper-pod
     spec:
       containers:
         - name: helper-pod

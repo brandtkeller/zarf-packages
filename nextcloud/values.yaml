@@ -1,6 +1,13 @@
 nextcloud:
-  username: ###ZARF_VAR_NEXTCLOUD_USERNAME###
-  password: ###ZARF_VAR_NEXTCLOUD_PASSWORD###
+  username: ###ZARF_VAR_NEXTCLOUD_ADMIN_USERNAME###
+  password: ###ZARF_VAR_NEXTCLOUD_ADMIN_PASSWORD###
+  extraEnv:
+  - name: REDIS_HOST
+    value: ###ZARF_VAR_NEXTCLOUD_REDIS_HOST###
+  - name: REDIS_HOST_PORT
+    value: "###ZARF_VAR_NEXTCLOUD_REDIS_PORT###"
+  - name: REDIS_HOST_PASSWORD
+    value: ###ZARF_VAR_NEXTCLOUD_REDIS_PASSWORD###
   extraInitContainers:
   - name: postgresql-isready
     image: bitnami/postgresql:14.4.0-debian-11-r23
@@ -8,12 +15,12 @@ nextcloud:
       - name: POSTGRES_USER
         valueFrom:
           secretKeyRef:
-            name: nextcloud-nextcloud-db
+            name: nextcloud-db
             key: db-username
     command:
       - "sh"
       - "-c"
-      - "until pg_isready -h nextcloud-nextcloud-postgresql -U ${POSTGRES_USER} ; do sleep 2 ; done"
+      - "until pg_isready -h ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_HOST### -U ${POSTGRES_USER} ; do sleep 2 ; done"
 
   host: ###ZARF_VAR_NEXTCLOUD_HOST###
   configs:
@@ -41,18 +48,18 @@ externalDatabase:
   ## Supported database engines: mysql or postgresql
   type: postgresql
 
-  user: nextcloud
+  user: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_USERNAME###
 
   ## Database password
-  password: replaceme
+  password: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_PASSWORD###
 
   ## Database host
-  host: nextcloud-nextcloud-postgresql.nextcloud.svc.cluster.local:5432
+  host: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_HOST###.nextcloud.svc.cluster.local:5432
   ## Database name
-  database: nextcloud
+  database: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_DATABASE###
 
 persistence:
-  enabled: false
+  enabled: true
   accessMode: ReadWriteOnce
   size: 10Gi
 

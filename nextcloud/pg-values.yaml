@@ -1,9 +1,9 @@
 global:
   postgresql:
     auth:
-      username: nextcloud
-      password: nextcloud
-      database: nextcloud
+      username: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_USERNAME###
+      password: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_PASSWORD###
+      database: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_DATABASE###
 
 primary:
   persistence:
