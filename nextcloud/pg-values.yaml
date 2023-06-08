@@ -1,0 +1,10 @@
+global:
+  postgresql:
+    auth:
+      username: nextcloud
+      password: nextcloud
+      database: nextcloud
+
+primary:
+  persistence:
+    enabled: true

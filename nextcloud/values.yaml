@@ -1,9 +1,21 @@
 nextcloud:
-  username: admin
-  password: admin
-  extraInitContainers: []
+  username: ###ZARF_VAR_NEXTCLOUD_USERNAME###
+  password: ###ZARF_VAR_NEXTCLOUD_PASSWORD###
+  extraInitContainers:
+  - name: postgresql-isready
+    image: bitnami/postgresql:14.4.0-debian-11-r23
+    env:
+      - name: POSTGRES_USER
+        valueFrom:
+          secretKeyRef:
+            name: nextcloud-nextcloud-db
+            key: db-username
+    command:
+      - "sh"
+      - "-c"
+      - "until pg_isready -h nextcloud-nextcloud-postgresql -U ${POSTGRES_USER} ; do sleep 2 ; done"
 
-  host: cloud.prod.kellerhome.us
+  host: ###ZARF_VAR_NEXTCLOUD_HOST###
   configs:
     domains.config.php: |-
       <?php
@@ -11,7 +23,7 @@ nextcloud:
         'trusted_domains' =>
           array (
           0 => 'localhost',
-          1 => 'cloud.prod.kellerhome.us',
+          1 => '###ZARF_VAR_NEXTCLOUD_HOST###',
           )
       );
     overwrite.config.php: |-
@@ -35,17 +47,17 @@ externalDatabase:
   password: replaceme
 
   ## Database host
-  host: nextcloud-postgresql.nextcloud.svc.cluster.local:5432
+  host: nextcloud-nextcloud-postgresql.nextcloud.svc.cluster.local:5432
   ## Database name
   database: nextcloud
 
 persistence:
-  enabled: true
+  enabled: false
   accessMode: ReadWriteOnce
   size: 10Gi
 
   nextcloudData:
     enabled: true
-    storageClass: "nfs-client"
+    storageClass: "###ZARF_VAR_NEXTCLOUD_DATA_STORAGE_CLASS###"
     accessMode: ReadWriteOnce
-    size: 400Gi
+    size: ###ZARF_VAR_NEXTCLOUD_DATA_STORAGE_SIZE###

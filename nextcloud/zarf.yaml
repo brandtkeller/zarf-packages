@@ -5,12 +5,46 @@ metadata:
   version: 0.0.1
 
 variables:
-  # - name: LOCAL_STORAGE_PATH
-  #   description: "path on the node for the local path provisioner will create PVC's"
-  #   prompt: true
-  #   default: /opt/local-path-provisioner
-  #   sensitive: false
-
+  - name: NEXTCLOUD_ADMIN_USERNAME
+    description: "admin username"
+    prompt: true
+    default: "admin"
+    sensitive: false
+  - name: NEXTCLOUD_ADMIN_PASSWORD
+    description: "admin password"
+    prompt: true
+    default: "admin"
+    sensitive: true
+  - name: NEXTCLOUD_HOST
+    description: "host for nextcloud - IE - cloud.example.com"
+    prompt: true
+    default: "example.com"
+    sensitive: false
+  - name: NEXTCLOUD_DATA_STORAGE_CLASS
+    description: "storage class for nextcloud"
+    prompt: true
+    default: "-"
+    sensitive: false
+  - name: NEXTCLOUD_DATA_STORAGE_SIZE
+    description: "storage size for nextcloud"
+    prompt: true
+    default: "100Gi"
+    sensitive: false
+  - name: POSTGRESQL_DATABASE
+    description: "postgres database to create"
+    prompt: true
+    default: "nextcloud"
+    sensitive: false
+  - name: POSTGRESQL_USERNAME
+    description: "postgres user to create"
+    prompt: true
+    default: "nextcloud"
+    sensitive: false
+  - name: POSTGRESQL_PASSWORD
+    description: "postgres password to create"
+    prompt: true
+    default: "nextcloud"
+    sensitive: true
 
 components:
 - name: nextcloud
@@ -24,15 +58,17 @@ components:
     - values.yaml
   - name: postgresql
     namespace: nextcloud
-    url:
-    version:
+    url: https://charts.bitnami.com/bitnami
+    version: 11.6.26
     valuesFiles:
     - pg-values.yaml
   - name: redis
     namespace: nextcloud
-    url:
-    version:
+    url: https://charts.bitnami.com/bitnami
+    version: 16.12.3
     valuesFiles:
     - redis-values.yaml
   images:
   - nextcloud:26.0.2
+  - bitnami/postgresql:14.4.0-debian-11-r23
+  - bitnami/redis:6.2.7-debian-11-r3
