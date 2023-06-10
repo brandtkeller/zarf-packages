@@ -1,0 +1,12 @@
+image:
+  repository: ghcr.io/brandtkeller/images/openvpn
+  tag: 1.1.0
+  pullPolicy: IfNotPresent
+
+redirectGateway: true
+# Use/generate certificate revocation list
+useCrl: false
+# Use/generate a ta.key (<https://openvpn.net/community-resources/hardening-openvpn-security/>)
+taKey: false
+# Override default cipher
+cipher: AES-256-GCM

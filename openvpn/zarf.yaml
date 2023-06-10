@@ -1,0 +1,19 @@
+kind: ZarfPackageConfig
+metadata:
+  name: openvpn
+  description: "openvpn zarf component"
+  version: 0.0.4
+
+components:
+- name: openvpn
+  required: true
+  charts:
+  - name: openvpn
+    namespace: openvpn
+    localPath: chart
+    version: 4.2.5
+    valuesFiles:
+    - values.yaml
+  images:
+  - ghcr.io/brandtkeller/images/openvpn:1.1.0
+
