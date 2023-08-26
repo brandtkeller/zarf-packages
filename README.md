@@ -1,6 +1,9 @@
 # zarf-packages
 Composable packages that I personally use for my home-lab and other orchestration. 
 
+## zarf oci
+https://docs.zarf.dev/docs/zarf-tutorials/publish-and-deploy
+
 ## Vision
 The repository is successful if it generates collaboration on any of the components located herein. 
 
