@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: zarf-connect-rook-ceph
+  labels:
+    # Enables "zarf connect longhorn-ui"
+    zarf.dev/connect-name: rook-ceph
+  annotations:
+    zarf.dev/connect-description: "Connect to the rook ceph User Interface"
+spec:
+  ports:
+  - name: http
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    app: longhorn-ui

@@ -25,7 +25,14 @@ components:
         valuesFiles:
         - operator-values.yaml
     images:
-      - 
+    - rook/ceph:v1.12.2
+    - quay.io/cephcsi/cephcsi:v3.9.0
+    - registry.k8s.io/sig-storage/csi-node-driver-registrar:v2.8.0
+    - registry.k8s.io/sig-storage/csi-provisioner:v3.5.0
+    - registry.k8s.io/sig-storage/csi-snapshotter:v6.2.2
+    - registry.k8s.io/sig-storage/csi-attacher:v4.3.0
+    - registry.k8s.io/sig-storage/csi-resizer:v1.8.0
+    - quay.io/csiaddons/k8s-sidecar:v0.7.0
   - name: ceph-cluster
     required: true
     description: Deploy the ceph cluster into a Kubernetes cluster
@@ -36,3 +43,5 @@ components:
         namespace: rook
         valuesFiles:
         - cluster-values.yaml
+    images:
+    - quay.io/ceph/ceph:v17.2.6
