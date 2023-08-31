@@ -58,6 +58,14 @@ externalDatabase:
   ## Database name
   database: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_DATABASE###
 
+  existingSecret:
+    enabled: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_EXISTING_SECRET###
+    secretName: ###ZARF_VAR_NEXTCLOUD_POSTGRESQL_EXISTING_SECRET_NAME###
+    usernameKey: user
+    passwordKey: password
+    hostKey: host
+    databaseKey: dbname
+
 persistence:
   enabled: true
   accessMode: ReadWriteOnce

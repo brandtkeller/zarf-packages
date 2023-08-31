@@ -2,7 +2,7 @@ kind: ZarfPackageConfig
 metadata:
   name: nextcloud
   description: "nextcloud zarf component"
-  version: 0.0.8
+  version: 4.1.0
 
 variables:
   - name: NEXTCLOUD_ADMIN_USERNAME
@@ -30,6 +30,16 @@ variables:
     prompt: true
     default: "100Gi"
     sensitive: false
+  - name: NEXTCLOUD_POSTGRESQL_EXISTING_SECRET
+    description: "postgres existing secret"
+    prompt: true
+    default: "nextcloud"
+    sensitive: false  
+  - name: NEXTCLOUD_POSTGRESQL_EXISTING_SECRET_NAME
+    description: "postgres existing secret name"
+    prompt: true
+    default: "nextcloud"
+    sensitive: false  
   - name: NEXTCLOUD_POSTGRESQL_HOST
     description: "postgres host"
     prompt: true
@@ -67,28 +77,39 @@ variables:
     sensitive: true
 
 components:
-- name: nextcloud
-  required: true
+- name: redis
+  charts:
+  - name: redis
+    namespace: nextcloud
+    # url: oci://registry-1.docker.io/bitnamicharts
+    localPath: redis
+    version: 17.13.2
+    valuesFiles:
+    - redis-values.yaml
+  images:
+  - bitnami/redis:7.0.12-debian-11-r2
+
+- name: postgresql
+  namespace: nextcloud
   charts:
   - name: postgresql
     namespace: nextcloud
-    url: https://charts.bitnami.com/bitnami
-    version: 11.6.26
+    # url: oci://registry-1.docker.io/bitnamicharts
+    localPath: postgresql
+    version: 12.6.9
     valuesFiles:
     - pg-values.yaml
-  - name: redis
-    namespace: nextcloud
-    url: https://charts.bitnami.com/bitnami
-    version: 16.12.3
-    valuesFiles:
-    - redis-values.yaml
+  images:
+  - bitnami/postgresql:15.3.0-debian-11-r74
+
+- name: nextcloud
+  required: true
+  charts:
   - name: nextcloud
     namespace: nextcloud
     url: https://nextcloud.github.io/helm/
-    version: 3.5.13
+    version: 4.1.0
     valuesFiles:
     - values.yaml
   images:
-  - nextcloud:26.0.2-apache
-  - bitnami/postgresql:14.4.0-debian-11-r23
-  - bitnami/redis:6.2.7-debian-11-r3
+  - nextcloud:27.0.2-apache
