@@ -2,7 +2,14 @@ kind: ZarfPackageConfig
 metadata:
   name: openvpn
   description: "openvpn zarf component"
-  version: 0.0.4
+  version: 0.0.5
+
+variables:
+  - name: OPENVPN_STORAGE_CLASS
+    description: "storageclass to be used by openvpn"
+    prompt: true
+    default: "-"
+    sensitive: false
 
 components:
 - name: openvpn

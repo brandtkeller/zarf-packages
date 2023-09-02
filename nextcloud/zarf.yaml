@@ -20,11 +20,6 @@ variables:
     prompt: true
     default: "example.com"
     sensitive: false
-  - name: NEXTCLOUD_DATA_STORAGE_CLASS
-    description: "storage class for nextcloud"
-    prompt: true
-    default: ""
-    sensitive: false
   - name: NEXTCLOUD_DATA_STORAGE_SIZE
     description: "storage size for nextcloud"
     prompt: true
@@ -75,6 +70,10 @@ variables:
     prompt: true
     default: "nextcloud"
     sensitive: true
+  - name: NEXTCLOUD_NODE_SELECTOR
+    description: "node selector for deployment"
+    prompt: false
+    default: 
 
 components:
 - name: redis

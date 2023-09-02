@@ -4,7 +4,7 @@ metadata:
   description: Example package for Rook
   version: v1.12.2
 components:
-  - name: rook-ceph-operator
+  - name: rook-ceph
     required: true
     description: Deploy Rook into a Kubernetes cluster.  https://rook.io
     # manifests:
@@ -13,18 +13,12 @@ components:
     #     files:
     #       - connect.yaml
     charts:
-      - name: rook-ceph-operator
+      - name: rook-ceph
         url:  https://charts.rook.io/release
         version: v1.12.2
         namespace: rook-ceph
         valuesFiles:
         - operator-values.yaml
-    images:
-    - rook/ceph:v1.12.2
-  - name: ceph-cluster
-    required: true
-    description: Deploy the ceph cluster into a Kubernetes cluster
-    charts:
       - name: rook-ceph-cluster
         url:  https://charts.rook.io/release
         version: v1.12.2

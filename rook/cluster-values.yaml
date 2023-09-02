@@ -95,7 +95,7 @@ cephClusterSpec:
   # The path on the host where configuration files will be persisted. Must be specified.
   # Important: if you reinstall the cluster, make sure you delete this directory from each host or else the mons will fail to start on the new cluster.
   # In Minikube, the '/data' directory is configured to persist across reboots. Use "/data/rook" in Minikube environment.
-  dataDirHostPath: /var/lib/rook
+  dataDirHostPath: /data/rook
 
   # Whether or not upgrade should continue even if a check fails
   # This means Ceph's status could be degraded and we don't recommend upgrading but you might decide otherwise
@@ -142,7 +142,7 @@ cephClusterSpec:
     # port: 8443
     # Serve the dashboard using SSL (if using ingress to expose the dashboard and `ssl: true` you need to set
     # the corresponding "backend protocol" annotation(s) for your ingress controller of choice)
-    ssl: true
+    ssl: false
 
   # Network configuration, see: https://github.com/rook/rook/blob/master/Documentation/CRDs/ceph-cluster-crd.md#network-configuration-settings
   network:

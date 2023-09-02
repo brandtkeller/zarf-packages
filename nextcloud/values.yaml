@@ -73,6 +73,5 @@ persistence:
 
   nextcloudData:
     enabled: true
-    storageClass: "###ZARF_VAR_NEXTCLOUD_DATA_STORAGE_CLASS###"
     accessMode: ReadWriteOnce
     size: ###ZARF_VAR_NEXTCLOUD_DATA_STORAGE_SIZE###
