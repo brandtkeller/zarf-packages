@@ -25,16 +25,6 @@ variables:
     prompt: true
     default: "100Gi"
     sensitive: false
-  - name: NEXTCLOUD_POSTGRESQL_EXISTING_SECRET
-    description: "postgres existing secret"
-    prompt: true
-    default: "nextcloud"
-    sensitive: false  
-  - name: NEXTCLOUD_POSTGRESQL_EXISTING_SECRET_NAME
-    description: "postgres existing secret name"
-    prompt: true
-    default: "nextcloud"
-    sensitive: false  
   - name: NEXTCLOUD_POSTGRESQL_HOST
     description: "postgres host"
     prompt: true
@@ -70,10 +60,6 @@ variables:
     prompt: true
     default: "nextcloud"
     sensitive: true
-  - name: NEXTCLOUD_NODE_SELECTOR
-    description: "node selector for deployment"
-    prompt: false
-    default: 
 
 components:
 - name: redis

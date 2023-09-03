@@ -1,0 +1,52 @@
+kind: ZarfPackageConfig
+metadata:
+  name: home-assistant
+  description: "Zarf components for home assistant"
+  version: 0.0.1
+  architecture: amd64
+
+# variables:
+#   - name: VIP_INTERFACE
+#     description: "Interface for the VIP"
+#     prompt: true
+#     sensitive: false
+
+components:
+  - name: home-assistant
+    required: false
+    charts:
+      - name: home-assistant
+        version: 0.1.7
+        namespace: home-assistant
+        url: oci://ghcr.io/brandtkeller/helm/home-assistant
+    images:
+      - ghcr.io/home-assistant/home-assistant:2023.6.2
+  
+  # - name: home-assistant-flux
+  #   required: true
+  #   manifests:
+  #   - name: home-assistant-config
+  #     namespace: gitops
+  #     files:
+  #       - configs/home-assistant/config.yaml
+  #   - name: home-assistant-namespace
+  #     files:
+  #       - configs/home-assistant/namespace.yaml
+  #   - name: virtualservice
+  #     namespace: home-assistant
+  #     files:
+  #       - configs/home-assistant/virtualservice.yaml
+  #       - configs/home-assistant/zwave-virtualservice.yaml
+  #   charts:
+  #     - name: flux-generics
+  #       url: oci://ghcr.io/brandtkeller/flux-generics
+  #       releaseName: flux-home-assistant
+  #       namespace: gitops
+  #       version: 0.0.1
+  #       valuesFiles:
+  #         - configs/home-assistant/flux.yaml
+  #   repos:
+  #     - https://github.com/brandtkeller/home-assistant-helm.git@0.1.5
+  #   images:
+  #     - ghcr.io/home-assistant/home-assistant:2023.6.0
+  #     - zwavejs/zwave-js-ui:8.17.1

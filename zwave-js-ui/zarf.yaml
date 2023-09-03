@@ -1,0 +1,23 @@
+kind: ZarfPackageConfig
+metadata:
+  name: zwave-js-ui
+  description: "Zarf components for zwave-js-ui"
+  version: 0.0.1
+  architecture: amd64
+
+# variables:
+#   - name: VIP_INTERFACE
+#     description: "Interface for the VIP"
+#     prompt: true
+#     sensitive: false
+
+components:
+  - name: zwave-js-ui
+    required: false
+    charts:
+      - name: zwave-js-ui
+        version: 0.0.3
+        namespace: zwave
+        url: oci://ghcr.io/brandtkeller/helm/zwave-js-ui
+    images:
+      - zwavejs/zwave-js-ui:8.17.1
