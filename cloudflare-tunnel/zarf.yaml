@@ -29,7 +29,10 @@ variables:
     description: "cloudflare kubernetes service - IE http://web-service:80"
     prompt: true
     sensitive: true
-
+  - name: CLOUDFLARE_SERVICE_NOTLS_VERIFY
+    description: "TLS VERIFY OPTIONS"
+    prompt: true
+    sensitive: false
 
 components:
 - name: cloudflare-tunnel
