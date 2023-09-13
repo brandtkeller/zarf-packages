@@ -1,0 +1,45 @@
+kind: ZarfPackageConfig
+metadata:
+  name: cloudflare-tunnel
+  description: "cloudflare tunnel zarf component"
+  version: 0.0.1
+
+variables:
+  - name: CLOUDFLARE_ACC_NUMBER
+    description: "cloudflare account number"
+    prompt: true
+    sensitive: true
+  - name: CLOUDFLARE_TUNNEL_NAME
+    description: "cloudflare tunnel name"
+    prompt: true
+    sensitive: false
+  - name: CLOUDFLARE_TUNNEL_ID
+    description: "cloudflare tunnel id"
+    prompt: true
+    sensitive: true
+  - name: CLOUDFLARE_TUNNEL_SECRET
+    description: "cloudflare tunnel secret"
+    prompt: true
+    sensitive: true
+  - name: CLOUDFLARE_SERVICE_HOSTNAME
+    description: "cloudflare dns hostname - IE tunnel.example.com"
+    prompt: true
+    sensitive: true
+  - name: CLOUDFLARE_SERVICE
+    description: "cloudflare kubernetes service - IE http://web-service:80"
+    prompt: true
+    sensitive: true
+
+
+components:
+- name: cloudflare-tunnel
+  required: true
+  charts:
+  - name: cloudflare-tunnel
+    namespace: cloudflare-tunnel
+    url:  https://cloudflare.github.io/helm-charts
+    version: 0.3.0
+    valuesFiles:
+    - values.yaml
+  images:
+  - cloudflare/cloudflared:2023.5.1
