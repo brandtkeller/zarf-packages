@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: local-nfs
+spec:
+  selector:
+    matchLabels:
+      name: local-nfs
+  template:
+    metadata:
+      labels:
+        name: local-nfs
+    spec:
+      containers:
+      - name: nfs
+        image: itsthenetwork/nfs-server-alpine:12
+        securityContext:
+          privileged: true
+        env:
+        - name: SHARED_DIRECTORY
+          value: "/nfsshare"
+        ports:
+        - containerPort: 2049
+          protocol: TCP
+        volumeMounts:
+        - mountPath: /nfsshare
+          name: share-volume
+      nodeSelector:
+        ###ZARF_VAR_NFS_NODESELECTOR###
+      volumes:
+      - name: share-volume
+        persistentVolumeClaim:
+            claimName: nfs-pvc
+
+
+        

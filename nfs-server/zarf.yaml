@@ -1,0 +1,39 @@
+kind: ZarfPackageConfig
+metadata:
+  name: nfs-server
+  description: Package for installing a simple nfs server on Kubernetes
+  version: 0.0.1
+
+variables:
+  - name: NFS_SERVICE_TYPE
+    description: "Service Type - LoadBalancer/ClusterIP/NodePort"
+    default: "ClusterIP"
+    prompt: true
+    sensitive: false
+  - name: NFS_STORAGE_CLASS
+    description: "Storage Class to use for NFS data"
+    default: ""
+    prompt: true
+    sensitive: false
+  - name: NFS_STORAGE_SIZE
+    description: "Size of storage to claim"
+    default: "10Gi"
+    prompt: true
+    sensitive: false
+  - name: NFS_NODESELECTOR
+    description: "node for the server to be assigned"
+    default: "{}"
+    prompt: true
+    sensitive: false
+
+components:
+  - name: nfs-server
+    manifests:
+      - name: nfs-manifests
+        namespace: nfs
+        files:
+        - manifests/pvc.yaml
+        - manifests/service.yaml
+        - manifests/deployment.yaml
+    images:
+      - itsthenetwork/nfs-server-alpine:12

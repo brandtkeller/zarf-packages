@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: nfs-svc
+spec:
+  selector:
+    name: local-nfs
+  ports:
+    - name: nfs-tcp
+      protocol: TCP
+      port: 2049
+      targetPort: 2049
+  type: ###ZARF_VAR_NFS_SERVICE_TYPE###
