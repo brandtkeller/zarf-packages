@@ -2,7 +2,7 @@ kind: ZarfPackageConfig
 metadata:
   name: zwave-js-ui
   description: "Zarf components for zwave-js-ui"
-  version: 0.0.1
+  version: 0.0.2
   architecture: amd64
 
 # variables:
@@ -16,7 +16,7 @@ components:
     required: false
     charts:
       - name: zwave-js-ui
-        version: 0.0.3
+        version: 0.0.4
         namespace: zwave
         url: oci://ghcr.io/brandtkeller/helm/zwave-js-ui
     images:

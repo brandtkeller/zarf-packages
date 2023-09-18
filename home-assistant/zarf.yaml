@@ -2,7 +2,7 @@ kind: ZarfPackageConfig
 metadata:
   name: home-assistant
   description: "Zarf components for home assistant"
-  version: 0.0.1
+  version: 0.0.2
   architecture: amd64
 
 # variables:
@@ -16,7 +16,7 @@ components:
     required: false
     charts:
       - name: home-assistant
-        version: 0.1.7
+        version: 0.1.8
         namespace: home-assistant
         url: oci://ghcr.io/brandtkeller/helm/home-assistant
     images:
