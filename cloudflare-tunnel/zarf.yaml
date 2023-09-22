@@ -2,7 +2,7 @@ kind: ZarfPackageConfig
 metadata:
   name: cloudflare-tunnel
   description: "cloudflare tunnel zarf component"
-  version: 0.0.1
+  version: 0.0.2
 
 variables:
   - name: CLOUDFLARE_ACC_NUMBER
@@ -45,4 +45,4 @@ components:
     valuesFiles:
     - values.yaml
   images:
-  - cloudflare/cloudflared:2023.5.1
+  - cloudflare/cloudflared:2023.8.2
