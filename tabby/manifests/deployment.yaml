@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tabby
+spec:
+  selector:
+    matchLabels:
+      name: tabby
+  template:
+    metadata:
+      labels:
+        name: tabby
+    spec:
+      containers:
+      - name: tabby
+        image: tabbyml/tabby:20231020
+        env:
+        - name: TABBY_DISABLE_USAGE_COLLECTION
+          value: "1" #disable usage collection for purpose of disconnected environments
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources:
+          limits:
+            nvidia.com/gpu: 1 # requesting 1 GPU
+        volumeMounts:
+        - mountPath: /data
+          name: data-volume
+      tolerations:
+      - key: nvidia.com/gpu
+        operator: Exists
+        effect: NoSchedule
+      nodeSelector:
+        ###ZARF_VAR_TABBY_NODESELECTOR###
+      volumes:
+      - name: data-volume
+        persistentVolumeClaim:
+            claimName: tabby-pvc
+
+
+        

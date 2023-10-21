@@ -1,0 +1,73 @@
+kind: ZarfPackageConfig
+metadata:
+  name: tabby
+  description: Tabby is an AI coding assistant
+  version: 0.0.1
+
+variables:
+  - name: TABBY_MODEL
+    description: "model for tabby to use"
+    prompt: true
+    default: "TabbyML/StarCoder-1B"
+    sensitive: false
+  - name: TABBY_SERVICE_type
+    description: "service type for tabby to use"
+    prompt: true
+    default: "ClusterIP"
+    sensitive: false
+  - name: TABBY_NODESELECTOR
+    description: "explicit nodeselector for the pod scheduling"
+    prompt: true
+    default: ""
+    sensitive: false
+  - name: TABBY_STORAGE_CLASS
+    description: "explicit storage class to use for persistent data"
+    prompt: true
+    default: ""
+    sensitive: false
+  - name: TABBY_STORAGE_SIZE
+    description: "Size of storage to claim"
+    default: "20Gi"
+    prompt: true
+    sensitive: false
+
+components:
+  - name: tabby
+    required: true
+    description: Tabby operation using GPU processing
+    images:
+    - tabbyml/tabby:20231020
+    manifests:
+    - name: tabby-manifests
+      namespace: tabby
+      files:
+      - manifests/service.yaml
+      - manifests/pvc.yaml
+      - manifests/service.yaml
+
+  - name: tabby-model
+    required: false
+    description: Tabby model injection
+    dataInjections:
+      # Injection in the data directory using the data-loader init container
+      - source: model-data
+        target:
+          namespace: tabby
+          selector: app=kiwix-serve #change
+          container: data-loader #change?
+          path: /data #verify
+        compress: true
+    actions:
+      onCreate:
+        before:
+          # Download a .zim file of a DevOps Stack Exchange snapshot into the data directory for use with Kiwix
+          - cmd: curl https://zarf-examples.s3.amazonaws.com/devops.stackexchange.com_en_all_2023-05.zim -o zim-data/devops.stackexchange.com_en_all_2023-05.zim
+
+  - name: tabby-virtualservice
+    required: false
+    description: virtualservice for tabby in istio environments
+    manifests:
+    - name: virtualservice
+      namespace: tabby
+      files:
+      - manifests/virtualservice.yaml
